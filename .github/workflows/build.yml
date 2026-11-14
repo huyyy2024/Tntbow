@@ -1,0 +1,22 @@
+name: build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: giải nén mã nguồn
+        run: unzip -q "$(ls *.zip | head -1)" -d src_mod
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: biên dịch
+        run: |
+          cd src_mod
+          chmod +x gradlew
+          ./gradlew build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tntbow-jar
+          path: src_mod/build/libs/*.jar

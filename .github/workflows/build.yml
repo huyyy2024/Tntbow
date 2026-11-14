@@ -9,8 +9,8 @@ jobs:
         run: unzip -q "$(ls *.zip | head -1)" -d src_mod
       - uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: '25'
+          distribution: 'microsoft'
       - name: biên dịch
         run: |
           cd src_mod
